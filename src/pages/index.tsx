@@ -65,7 +65,6 @@ export default Home;
 
 const AuthShowcase: React.FC = () => {
   const { data: sessionData, status } = useSession();
-
   console.log("🔈 ~ status", status);
 
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(

@@ -1,26 +1,24 @@
-"use client";
+import { signIn } from "next-auth/react";
+
 import { trpc } from "../../utils/trpc";
 
 const SignUp = () => {
-  // const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
-  const test = trpc.auth.createUser.useMutation({
-    onSuccess: (data) => {
-      console.log("🔈 ~ onSuccess", data);
+  const email = "test2@test.com";
+  const password = "Testing01!";
+
+  const { mutate } = trpc.auth.createUser.useMutation({
+    onSuccess: () => {
+      signIn("credentials", { email, password });
     },
   });
 
   const submit = async () => {
-    const result = test.mutate({
-      email: "trpc@test.com",
-      password: "Testing01!",
+    mutate({
+      email,
+      password,
     });
-    console.log("🔈 ~ result", result);
   };
 
-  return (
-    <div>
-      <button onClick={submit}>Register USER</button>
-    </div>
-  );
+  return <button onClick={submit}>Register USER</button>;
 };
 export default SignUp;
