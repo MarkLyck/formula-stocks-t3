@@ -1,8 +1,8 @@
-"use client";
+import { signIn } from "next-auth/react";
 
 const Login = () => {
   const submit = async () => {
-    console.log("submit");
+    signIn("credentials", { email: "trpc@test.com", password: "Testing01!" });
   };
 
   return (

@@ -18,7 +18,8 @@
     "baseUrl": ".",
     "paths": {
       "src": ["./src/*"],
-      "@": ["./*"]
+      "@": ["./*"],
+      "@trpc": ["./src/utils/trpc"]
     },
     "plugins": [
       {

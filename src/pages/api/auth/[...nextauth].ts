@@ -28,16 +28,32 @@ export const authOptions: NextAuthOptions = {
       // The name to display on the sign in form (e.g. "Sign in with...")
       name: "Credentials",
       credentials: {
-        email: { label: "Username", type: "text", placeholder: "jsmith" },
+        email: { label: "Email", type: "text", placeholder: "email" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials, req) {
-        // Add logic here to look up the user from the credentials supplied
-        const user = {
-          id: "1dfs7t783112ds",
-          name: "J Smith",
-          email: "jsmith@example.com",
-        };
+      async authorize(credentials) {
+        if (!credentials?.email) {
+          throw new Error("Missing email");
+        }
+        if (!credentials?.password) {
+          throw new Error("Missing password");
+        }
+
+        const user = await prisma.user.findFirst({
+          where: {
+            email: credentials.email,
+          },
+          select: {
+            email: true,
+            password: true,
+            id: true,
+          },
+        });
+
+        if (!user || user.password !== credentials.password) {
+          throw new Error("Invalid email or password");
+        }
+
         return user;
       },
     }),
