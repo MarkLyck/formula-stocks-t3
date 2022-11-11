@@ -49,8 +49,18 @@ export const authOptions: NextAuthOptions = {
             id: true,
           },
         });
+        if (!user) {
+          throw new Error("Invalid email or password");
+        }
+        if (!user.password) {
+          throw new Error("User does not have a password (oAuth)");
+        }
 
-        if (!user || user.password !== credentials.password) {
+        const userPassword = Buffer.from(user.password, "base64").toString(
+          "ascii"
+        );
+
+        if (!user || userPassword !== credentials.password) {
           throw new Error("Invalid email or password");
         }
 

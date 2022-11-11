@@ -24,7 +24,10 @@ export const authRouter = router({
       }
 
       const result = await ctx.prisma.user.create({
-        data: input,
+        data: {
+          email: input.email,
+          password: Buffer.from(input.password).toString("base64"),
+        },
         select: {
           id: true,
           email: true,
