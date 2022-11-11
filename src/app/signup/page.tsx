@@ -1,4 +1,4 @@
-import SignUp from "src/components/Auth0/SignUp";
+import SignUp from "src/components/Auth/SignUp";
 
 const page = () => {
   return (
