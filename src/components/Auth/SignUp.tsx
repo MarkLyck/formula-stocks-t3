@@ -1,6 +1,6 @@
 import { signIn } from "next-auth/react";
 
-import { trpc } from "../../utils/trpc";
+import { trpc } from "src/utils/trpc";
 
 const SignUp = () => {
   const email = "test2@test.com";
